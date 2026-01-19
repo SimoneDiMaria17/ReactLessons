@@ -1,0 +1,51 @@
+[drive](https://drive.google.com/drive/folders/1SWmGOzy1QD2d36PYiFGpjIFcv40VPqO_)
+1.scaricare node [qui](https://nodejs.org/en/download)
+
+- Per Creare il progetto si usa il comando **npx create-react-app nome**
+- Se mancano installare i node modules **npm install**
+- Per Avviare il programma si usa il comando **npm start**
+
+React si basa su javascript  ed è una libreria non un framework.
+
+#File
+package-json
+    contiente tutte le dipendenze del progetto, questo è utile perchè non ti devi salvare i node modules e basta che condividi il file senza, poi con il comando npm install li riscarichi
+package-lock
+    le versioni delle dipendenze che vengono usate
+    
+App.js
+    component di js, ritorna come output un jsx
+index.html 
+    dove c'è il div route viene eseguito l'index.js 
+index.js++ 
+    <App /> è il tag che richiama il component App.js
+
+
+
+Componenti
+il nome deve essere sempre maiuscolo -> guardare App.js
+
+
+export default function Profile(){
+  return( //dico che può renderizzare righe multiple
+    <img
+      src="https://i.imgur.com/lICfvbD.jpg"
+      alt="Aklilu Lemma"
+    />
+  ); 
+}
+
+bisogna esportare il component con  export, il default può essere usato solo su un component e determina il primo che viene esportato su quel file, quando poi lo importi con import nome from 'path', lo usi con <nome/>
+
+Regole JSX, unione tra html e js rendendo tutto più dinamico, bisogna chiudere tutti i tag html, deve ritornare un div fo un elemento che raggruppa gli altri, se non voglio usare dei div,span,nav,section si può usare <>. 
+Si usa il fragment se voglio usare una key.
+
+per usare una class di stile si usa ClassName
+
+
+
+style
+gli stili globali si inseriscono in Index.css poi ogni component ha i suoi stili singoli
+
+
+

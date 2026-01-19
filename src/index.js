@@ -2,12 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import FirstComp from '../src/Esercizi/FirstComp/FirstComp';
+import ImpExEs from '../src/Esercizi/ImpExp/ImpExpEs';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <App />
+    {/* <FirstComp /> */}
+    <h1>Esercizio ImpExp</h1>
+    <ImpExEs />
   </React.StrictMode>
 );
 
