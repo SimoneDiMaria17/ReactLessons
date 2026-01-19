@@ -5,7 +5,11 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  
+   background-image: url("https://i.imgur.com/4y1OF7E.jpg");
+   background-size:cover;
+   background-repeat: no-repeat;
+   background-attachment: fixed;
+   color: white;
 }
 
 code {
@@ -13,3 +17,8 @@ code {
     monospace;
 }
 
+
+.avatar{
+  border-radius: 50%;
+  height: 90px;
+}

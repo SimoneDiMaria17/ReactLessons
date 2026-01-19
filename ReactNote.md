@@ -40,12 +40,15 @@ bisogna esportare il component con  export, il default può essere usato solo su
 Regole JSX, unione tra html e js rendendo tutto più dinamico, bisogna chiudere tutti i tag html, deve ritornare un div fo un elemento che raggruppa gli altri, se non voglio usare dei div,span,nav,section si può usare <>. 
 Si usa il fragment se voglio usare una key.
 
-per usare una class di stile si usa ClassName
+per usare una class di stile si usa ClassName, se voglio usare elementi js come variabili costanti e chiamare funzioni posso farlo attraverso le parentesi graffe, vedere File Avatar.js, con le doppie graffe si usano per il css e gli oggetti.
 
+ogni component ha delle proprietà, per esempio i parametri
 
+spread sintax -> serve per inoltrare le proprietà usando jsx
 
 style
-gli stili globali si inseriscono in Index.css poi ogni component ha i suoi stili singoli
+gli stili globali si inseriscono in Index.css poi ogni component ha i suoi stili singoli.
+
 
 
 
