@@ -6,13 +6,14 @@ import reportWebVitals from './reportWebVitals';
 
 import EserciziMain from './Esercizi/EserciziMain';
 import ContionalRendering from './ConditionalRendering';
-
+import AccedereListe from "./AccedereListe";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     
     <ContionalRendering />
-
+    <h1>Accedere alle liste</h1>
+    <AccedereListe/>
 <h1>-----------------------------------------------------</h1>
     <h1>Esercizi</h1>
     

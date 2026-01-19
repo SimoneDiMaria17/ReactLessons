@@ -49,6 +49,9 @@ spread sintax -> serve per inoltrare le proprietà usando jsx, se usi come param
 
 conditional rendering -> permette di visualizzare in maniera condizionale dei componenti
 
+
+Per accedere ad una lista di oggetti
+
 style
 gli stili globali si inseriscono in Index.css poi ogni component ha i suoi stili singoli.
 

@@ -1,3 +1,3 @@
-export function getImage(person,size='s'){
-    return 'https://i.imgur.com/7vQD0fPs.jpg';
-}
+export function getImage(imageId, size='s') {
+    return 'https://i.imgur.com/' + imageId + size + '.jpg';
+} 

@@ -3,7 +3,9 @@
  import Avatar from "../Proprieta/Avatar";
     import JSON from '../Json';
     import InterpolationEs from "./InterpolationEs";
+    import ListeEsercizi from "./ListeEsercizi"
 import  ChildrenEs  from "./ChildrenEs";
+import ConditionalRenderingEsercizi from "./ConditionalRenderingEsercizi"
  export default function EserciziMain() {
     return(<>
     <h1>FirstComp</h1>
@@ -14,5 +16,9 @@ import  ChildrenEs  from "./ChildrenEs";
     <InterpolationEs />
     <h1>Children es</h1>
     <ChildrenEs />
+    <h1>Conditional Rendering</h1>
+    <ConditionalRenderingEsercizi/>
+    <h1>liste di dati</h1>
+    <ListeEsercizi/>
     </>);
  }
