@@ -1,4 +1,4 @@
-import Profile from "./Profile";
+import Profile from "../Profile";
 
  function Avatar(){
     //definisco una costante

@@ -1,4 +1,4 @@
-import utils from './Utils';
+import {getImage} from './Utils';
 
 export default function Todo() {
   return (
@@ -38,7 +38,7 @@ export function Avatar({person, size}) {
   return(<>
     <img 
       className='avatar'
-      src={utils.getImage(person,size)}
+      src={getImage(person,size)}
       alt='fulvios'
       width = {size}
       height = {size}

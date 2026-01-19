@@ -44,7 +44,10 @@ per usare una class di stile si usa ClassName, se voglio usare elementi js come 
 
 ogni component ha delle proprietà, per esempio i parametri
 
-spread sintax -> serve per inoltrare le proprietà usando jsx
+spread sintax -> serve per inoltrare le proprietà usando jsx, se usi come parametro {children} fai riferimento a tutti i component passati all'interno di esso
+
+
+conditional rendering -> permette di visualizzare in maniera condizionale dei componenti
 
 style
 gli stili globali si inseriscono in Index.css poi ogni component ha i suoi stili singoli.
