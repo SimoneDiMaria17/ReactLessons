@@ -23,11 +23,11 @@ var altri = people.filter(person => person.profession !== 'chemist')
   );
 }
 
-function Stampa(person){
+function Stampa({person}){
     var list = person.map(p =>
     <li key={p.id}>
       <img
-        src={getImage(p)}
+        src={getImage(p.imageId)}
         alt={p.name}
       />
       <p>
