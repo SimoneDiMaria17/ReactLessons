@@ -7,14 +7,27 @@ import reportWebVitals from './reportWebVitals';
 import EserciziMain from './Esercizi/EserciziMain';
 import ContionalRendering from './ConditionalRendering';
 import AccedereListe from "./AccedereListe";
+import SetTea from "./ComponentePuro"
+import Eventi from "./Eventi"
+import Stato from "./Stato"
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    
+    <hr></hr>
+    <h1>stato</h1>
+    <Stato></Stato>
+    <hr></hr>
     <ContionalRendering />
+    <hr></hr>
+    <h1>Eventi</h1>
+    <Eventi></Eventi>
+    <hr></hr>
     <h1>Accedere alle liste</h1>
-    <AccedereListe/>
-<h1>-----------------------------------------------------</h1>
+    <setTea/>
+    <hr></hr>
+    <h1>funzioni pure</h1>
+    <SetTea/>
+    <hr></hr>
     <h1>Esercizi</h1>
     
     <EserciziMain/>
