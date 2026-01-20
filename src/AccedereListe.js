@@ -1,6 +1,6 @@
 
 
-import { people } from "./Data"; //prendo i dati da Data.js come se fosse un json
+import { people },{ recipes } from "./Data"; //prendo i dati da Data.js come se fosse un json
 import { getImage } from "./Utils";
 export default function List(){
     const chemist = people.filter(person => person.profession ==='chemist')
@@ -20,4 +20,15 @@ export default function List(){
         </li>
     ));
     return(<ul>{list}</ul>)
+}
+
+
+
+
+export default function RecipeList() {
+  return (
+    <div>
+      <h1>Recipes</h1>
+    </div>
+  );
 }
