@@ -7,9 +7,13 @@
 import ComponentePuroEs from "./ComponentePuroEs";
 import EventiEsercizi from "./EventiEsercizi"
 import  ChildrenEs  from "./ChildrenEs";
+import StatoEs from "./StatoEs"
 import ConditionalRenderingEsercizi from "./ConditionalRenderingEsercizi"
  export default function EserciziMain() {
     return(<>
+    <hr></hr>
+    <h1>Stato</h1>
+    <StatoEs /> 
     <hr></hr>
     <h1>FirstComp</h1>
     <FirstComp /> 

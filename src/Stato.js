@@ -46,3 +46,4 @@ export default function Gallery(){
         <button onClick={click}>next</button>
     </div>)
 }
+//lo stato è privato

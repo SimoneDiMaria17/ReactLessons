@@ -65,4 +65,55 @@ gli stili globali si inseriscono in Index.css poi ogni component ha i suoi stili
 Eventi
 
 
-stato
+stato-> quando le informazioni vanno ricordate e lo stato persiste -> hook
+differenza con le proprietà
+
+--------------------
+React.js: Props vs State
+
+1. Props (Proprietà)
+
+Sono valori passati ai componenti dal componente genitore.
+
+Sono immutabili: il componente figlio non può modificarle.
+
+Vengono usate per configurare il componente o per passare dati.
+
+Sintassi tipica:
+
+function Saluto(props) {
+  return <h1>Ciao, {props.nome}!</h1>;
+}
+
+
+Uso: <Saluto nome="Luca" />
+
+2. State (Stato)
+
+È un insieme di dati locali al componente che possono cambiare nel tempo.
+
+È mutabile tramite la funzione setState (nei componenti a classe) o useState (nei componenti funzionali).
+
+Serve a gestire l’interattività e aggiornare il rendering quando cambia.
+
+Esempio con hook useState:
+
+import { useState } from 'react';
+
+function Contatore() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>Hai cliccato {count} volte</p>
+      <button onClick={() => setCount(count + 1)}>Clicca</button>
+    </div>
+  );
+}
+
+
+In breve:
+
+Props → dati immutabili ricevuti dall’esterno.
+
+State → dati mutabili locali al componente.
