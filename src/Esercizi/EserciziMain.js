@@ -9,8 +9,12 @@ import EventiEsercizi from "./EventiEsercizi"
 import  ChildrenEs  from "./ChildrenEs";
 import StatoEs from "./StatoEs"
 import ConditionalRenderingEsercizi from "./ConditionalRenderingEsercizi"
+import RenderEs from "./RenderEs"
  export default function EserciziMain() {
     return(<>
+    <hr></hr>
+    <h1>Render</h1>
+    <RenderEs />
     <hr></hr>
     <h1>Stato</h1>
     <StatoEs /> 

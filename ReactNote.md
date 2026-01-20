@@ -67,7 +67,7 @@ Eventi
 
 stato-> quando le informazioni vanno ricordate e lo stato persiste -> hook
 differenza con le proprietà
-
+updater function
 --------------------
 React.js: Props vs State
 
