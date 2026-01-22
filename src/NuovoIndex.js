@@ -1,5 +1,5 @@
 import { useEffect,useRef, useState } from "react";
-import {useOnlineStatus} from "./CustomHook";
+import {useOnlineStatus, UseFormInput} from "./CustomHook";
 
 //creando una chat room
 
@@ -202,11 +202,33 @@ export  function SaveButton(){
         <button disabled={!isOnline} onClick={handleSaveClick}>click</button>
     </div>);
 }
-export default function App(){  
+export function App(){  
     return(<>
         <SaveButton/>
         <StatusBar/>
     </>)
+}
+
+//----------------
+// custom hooks permit shared logic, not state itself
+export default function Forms() {
+
+    
+    const firstNameprop = UseFormInput("fulvios");
+    const lastNameprop = UseFormInput("Lfulvios");
+
+    return (
+        <>
+            fn: <input {...firstNameprop} />
+            ln: <input {...lastNameprop}/>
+            <br></br>
+            {firstNameprop.value} {lastNameprop.value}
+        </>
+    )
+
+    
+
+
 }
 
 
