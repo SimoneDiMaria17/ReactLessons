@@ -10,8 +10,14 @@ import  ChildrenEs  from "./ChildrenEs";
 import StatoEs from "./StatoEs"
 import ConditionalRenderingEsercizi from "./ConditionalRenderingEsercizi"
 import RenderEs from "./RenderEs"
+import ConvertireLoStato from "./ConvertireLoStato"
+import HookEser from './HookEser'
  export default function EserciziMain() {
     return(<>
+   <HookEser/>
+    <hr></hr>
+    <h1>pullo</h1>
+    <ConvertireLoStato />
     <hr></hr>
     <h1>Render</h1>
     <RenderEs />

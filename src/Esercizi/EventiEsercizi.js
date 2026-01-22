@@ -4,7 +4,7 @@
 
 export default function LightSwitch() {
   function handleClick() {
-    const ciccio = "https://i.imgur.com/4y1OF7E.jpg";
+    const ciccio = "https://i.pinimg.com/736x/06/3e/42/063e426fb1f1402d0aa06eb837a9bc9b.jpg";
     const joker = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6MXPsJjCcPCvPaf4b6QsBm-grlLTCCXJkGQ&s";
 
     const bodyStyle = document.body.style;

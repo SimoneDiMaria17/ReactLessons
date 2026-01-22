@@ -1,3 +1,4 @@
+SnippetsAndExercises.txt
 Your First Component
 
 https://i.imgur.com/MK3eW3Am.jpg
@@ -2725,6 +2726,143 @@ function Field({ label }) {
 
 Extracting State Logic into a Reducer
 
+AddTask.js
+import { useState } from 'react';
+
+export default function AddTask({onAddTask}) {
+  const [text, setText] = useState('');
+  return (
+    <>
+      <input
+        placeholder="Add task"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+      />
+      <button
+        onClick={() => {
+          setText('');
+          onAddTask(text);
+        }}>
+        Add
+      </button>
+    </>
+  );
+}
+
+TaskList.js
+import { useState } from 'react';
+
+export default function TaskList({tasks, onChangeTask, onDeleteTask}) {
+  return (
+    <ul>
+      {tasks.map((task) => (
+        <li key={task.id}>
+          <Task task={task} onChange={onChangeTask} onDelete={onDeleteTask} />
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function Task({task, onChange, onDelete}) {
+  const [isEditing, setIsEditing] = useState(false);
+  let taskContent;
+  if (isEditing) {
+    taskContent = (
+      <>
+        <input
+          value={task.text}
+          onChange={(e) => {
+            onChange({
+              ...task,
+              text: e.target.value,
+            });
+          }}
+        />
+        <button onClick={() => setIsEditing(false)}>Save</button>
+      </>
+    );
+  } else {
+    taskContent = (
+      <>
+        {task.text}
+        <button onClick={() => setIsEditing(true)}>Edit</button>
+      </>
+    );
+  }
+  return (
+    <label>
+      <input
+        type="checkbox"
+        checked={task.done}
+        onChange={(e) => {
+          onChange({
+            ...task,
+            done: e.target.checked,
+          });
+        }}
+      />
+      {taskContent}
+      <button onClick={() => onDelete(task.id)}>Delete</button>
+    </label>
+  );
+}
+
+App.js
+import { useState } from 'react';
+import AddTask from './AddTask.js';
+import TaskList from './TaskList.js';
+
+export default function TaskApp() {
+  const [tasks, setTasks] = useState(initialTasks);
+
+  function handleAddTask(text) {
+    setTasks([
+      ...tasks,
+      {
+        id: nextId++,
+        text: text,
+        done: false,
+      },
+    ]);
+  }
+
+  function handleChangeTask(task) {
+    setTasks(
+      tasks.map((t) => {
+        if (t.id === task.id) {
+          return task;
+        } else {
+          return t;
+        }
+      })
+    );
+  }
+
+  function handleDeleteTask(taskId) {
+    setTasks(tasks.filter((t) => t.id !== taskId));
+  }
+
+  return (
+    <>
+      <h1>Prague itinerary</h1>
+      <AddTask onAddTask={handleAddTask} />
+      <TaskList
+        tasks={tasks}
+        onChangeTask={handleChangeTask}
+        onDeleteTask={handleDeleteTask}
+      />
+    </>
+  );
+}
+
+let nextId = 3;
+const initialTasks = [
+  {id: 0, text: 'Visit Kafka Museum', done: true},
+  {id: 1, text: 'Watch a puppet show', done: false},
+  {id: 2, text: 'Lennon Wall pic', done: false},
+];
+
 Recap
 •	To convert from useState to useReducer:
 1.	Dispatch actions from event handlers.
@@ -2838,6 +2976,556 @@ const contacts = [
   {id: 1, name: 'Alice', email: 'alice@mail.com'},
   {id: 2, name: 'Bob', email: 'bob@mail.com'},
 ];
+
+
+Passing Data Deeply with Context
+
+Before you use context 
+Context is very tempting to use! However, this also means it’s too easy to overuse it. Just because you need to pass some props several levels deep doesn’t mean you should put that information into context.
+
+Here’s a few alternatives you should consider before using context:
+
+1. Start by passing props.
+2. Extract components and pass JSX as children to them. 
+
+Use cases for context 
+
+o Theming: If your app lets the user change its appearance (e.g. dark mode), you can put a context provider at the top of your app, and use that context in components that need to adjust their visual look.
+
+o Current account: Many components might need to know the currently logged in user. Putting it in context makes it convenient to read it anywhere in the tree. Some apps also let you operate multiple accounts at the same time (e.g. to leave a comment as a different user). In those cases, it can be convenient to wrap a part of the UI into a nested provider with a different current account value.
+
+o Routing: Most routing solutions use context internally to hold the current route. This is how every link “knows” whether it’s active or not. If you build your own router, you might want to do it too.
+
+o Managing state: As your app grows, you might end up with a lot of state closer to the top of your app. Many distant components below may want to change it. It is common to use a reducer together with context to manage complex state and pass it down to distant components without too much hassle.
+
+Recap
+o Context lets a component provide some information to the entire tree below it.
+o To pass context:
+1. Create and export it with export const MyContext = createContext(defaultValue).
+2. Pass it to the useContext(MyContext) Hook to read it in any child component, no matter how deep.
+3. Wrap children into <MyContext value={...}> to provide it from a parent.
+o Context passes through any components in the middle.
+o Context lets you write components that “adapt to their surroundings”.
+o Before you use context, try passing props or passing JSX as children.
+
+Exercise 1 of 1: Replace prop drilling with context 
+In this example, toggling the checkbox changes the imageSize prop passed to each <PlaceImage>. The checkbox state is held in the top-level App component, but each <PlaceImage> needs to be aware of it.
+
+Currently, App passes imageSize to List, which passes it to each Place, which passes it to the PlaceImage. Remove the imageSize prop, and instead pass it from the App component directly to PlaceImage.
+
+You can declare context in Context.js.
+
+utils.js
+export function getImageUrl(place) {
+  return (
+    'https://i.imgur.com/' +
+    place.imageId +
+    'l.jpg'
+  );
+}
+
+data.js
+export const places = [{
+  id: 0,
+  name: 'Bo-Kaap in Cape Town, South Africa',
+  description: 'The tradition of choosing bright colors for houses began in the late 20th century.',
+  imageId: 'K9HVAGH'
+}, {
+  id: 1, 
+  name: 'Rainbow Village in Taichung, Taiwan',
+  description: 'To save the houses from demolition, Huang Yung-Fu, a local resident, painted all 1,200 of them in 1924.',
+  imageId: '9EAYZrt'
+}, {
+  id: 2, 
+  name: 'Macromural de Pachuca, Mexico',
+  description: 'One of the largest murals in the world covering homes in a hillside neighborhood.',
+  imageId: 'DgXHVwu'
+}, {
+  id: 3, 
+  name: 'Selarón Staircase in Rio de Janeiro, Brazil',
+  description: 'This landmark was created by Jorge Selarón, a Chilean-born artist, as a "tribute to the Brazilian people."',
+  imageId: 'aeO3rpI'
+}, {
+  id: 4, 
+  name: 'Burano, Italy',
+  description: 'The houses are painted following a specific color system dating back to 16th century.',
+  imageId: 'kxsph5C'
+}, {
+  id: 5, 
+  name: 'Chefchaouen, Marocco',
+  description: 'There are a few theories on why the houses are painted blue, including that the color repels mosquitos or that it symbolizes sky and heaven.',
+  imageId: 'rTqKo46'
+}, {
+  id: 6,
+  name: 'Gamcheon Culture Village in Busan, South Korea',
+  description: 'In 2009, the village was converted into a cultural hub by painting the houses and featuring exhibitions and art installations.',
+  imageId: 'ZfQOOzf'
+}];
+
+Context.js
+// TODO
+
+App.js
+import { useState } from 'react';
+import { places } from './data.js';
+import { getImageUrl } from './utils.js';
+
+export default function App() {
+  const [isLarge, setIsLarge] = useState(false);
+  const imageSize = isLarge ? 150 : 100;
+  return (
+    <>
+      <label>
+        <input
+          type="checkbox"
+          checked={isLarge}
+          onChange={e => {
+            setIsLarge(e.target.checked);
+          }}
+        />
+        Use large images
+      </label>
+      <hr />
+      <List imageSize={imageSize} />
+    </>
+  )
+}
+
+function List({ imageSize }) {
+  const listItems = places.map(place =>
+    <li key={place.id}>
+      <Place
+        place={place}
+        imageSize={imageSize}
+      />
+    </li>
+  );
+  return <ul>{listItems}</ul>;
+}
+
+function Place({ place, imageSize }) {
+  return (
+    <>
+      <PlaceImage
+        place={place}
+        imageSize={imageSize}
+      />
+      <p>
+        <b>{place.name}</b>
+        {': ' + place.description}
+      </p>
+    </>
+  );
+}
+
+function PlaceImage({ place, imageSize }) {
+  return (
+    <img
+      src={getImageUrl(place)}
+      alt={place.name}
+      width={imageSize}
+      height={imageSize}
+    />
+  );
+}
+
+Scaling Up with Reducer and Context
+
+TaskList.js
+import { useState } from 'react';
+
+export default function TaskList({
+  tasks,
+  onChangeTask,
+  onDeleteTask
+}) {
+  return (
+    <ul>
+      {tasks.map(task => (
+        <li key={task.id}>
+          <Task
+            task={task}
+            onChange={onChangeTask}
+            onDelete={onDeleteTask}
+          />
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function Task({ task, onChange, onDelete }) {
+  const [isEditing, setIsEditing] = useState(false);
+  let taskContent;
+  if (isEditing) {
+    taskContent = (
+      <>
+        <input
+          value={task.text}
+          onChange={e => {
+            onChange({
+              ...task,
+              text: e.target.value
+            });
+          }} />
+        <button onClick={() => setIsEditing(false)}>
+          Save
+        </button>
+      </>
+    );
+  } else {
+    taskContent = (
+      <>
+        {task.text}
+        <button onClick={() => setIsEditing(true)}>
+          Edit
+        </button>
+      </>
+    );
+  }
+  return (
+    <label>
+      <input
+        type="checkbox"
+        checked={task.done}
+        onChange={e => {
+          onChange({
+            ...task,
+            done: e.target.checked
+          });
+        }}
+      />
+      {taskContent}
+      <button onClick={() => onDelete(task.id)}>
+        Delete
+      </button>
+    </label>
+  );
+}
+
+AddTask.js
+import { useState } from 'react';
+
+export default function AddTask({ onAddTask }) {
+  const [text, setText] = useState('');
+  return (
+    <>
+      <input
+        placeholder="Add task"
+        value={text}
+        onChange={e => setText(e.target.value)}
+      />
+      <button onClick={() => {
+        setText('');
+        onAddTask(text);
+      }}>Add</button>
+    </>
+  )
+}
+
+App.js
+import { useReducer } from 'react';
+import AddTask from './AddTask.js';
+import TaskList from './TaskList.js';
+
+export default function TaskApp() {
+  const [tasks, dispatch] = useReducer(
+    tasksReducer,
+    initialTasks
+  );
+
+  function handleAddTask(text) {
+    dispatch({
+      type: 'added',
+      id: nextId++,
+      text: text,
+    });
+  }
+
+  function handleChangeTask(task) {
+    dispatch({
+      type: 'changed',
+      task: task
+    });
+  }
+
+  function handleDeleteTask(taskId) {
+    dispatch({
+      type: 'deleted',
+      id: taskId
+    });
+  }
+
+  return (
+    <>
+      <h1>Day off in Kyoto</h1>
+      <AddTask
+        onAddTask={handleAddTask}
+      />
+      <TaskList
+        tasks={tasks}
+        onChangeTask={handleChangeTask}
+        onDeleteTask={handleDeleteTask}
+      />
+    </>
+  );
+}
+
+function tasksReducer(tasks, action) {
+  switch (action.type) {
+    case 'added': {
+      return [...tasks, {
+        id: action.id,
+        text: action.text,
+        done: false
+      }];
+    }
+    case 'changed': {
+      return tasks.map(t => {
+        if (t.id === action.task.id) {
+          return action.task;
+        } else {
+          return t;
+        }
+      });
+    }
+    case 'deleted': {
+      return tasks.filter(t => t.id !== action.id);
+    }
+    default: {
+      throw Error('Unknown action: ' + action.type);
+    }
+  }
+}
+
+let nextId = 3;
+const initialTasks = [
+  { id: 0, text: 'Philosopher’s Path', done: true },
+  { id: 1, text: 'Visit the temple', done: false },
+  { id: 2, text: 'Drink matcha', done: false }
+];
+
+Recap
+o You can combine reducer with context to let any component read and update state above it.
+o To provide state and the dispatch function to components below:
+1. Create two contexts (for state and for dispatch functions).
+2. Provide both contexts from the component that uses the reducer.
+3. Use either context from components that need to read them.
+o You can further declutter the components by moving all wiring into one file.
+o You can have many context-reducer pairs like this in your app.
+
+Referencing Values with Refs
+
+Recap
+o Refs are an escape hatch to hold onto values that aren’t used for rendering. You won’t need them often.
+o A ref is a plain JavaScript object with a single property called current, which you can read or set.
+o You can ask React to give you a ref by calling the useRef Hook.
+Like state, refs let you retain information between re-renders of a component.
+o Unlike state, setting the ref’s current value does not trigger a re-render.
+o Don’t read or write ref.current during rendering. This makes your component hard to predict.
+
+Exercise 1 of 4: Fix a broken chat input 
+Type a message and click “Send”. You will notice there is a three second delay before you see the “Sent!” alert. During this delay, you can see an “Undo” button. Click it. This “Undo” button is supposed to stop the “Sent!” message from appearing. It does this by calling clearTimeout for the timeout ID saved during handleSend. However, even after “Undo” is clicked, the “Sent!” message still appears. Find why it doesn’t work, and fix it.
+
+App.js
+import { useState } from 'react';
+
+export default function Chat() {
+  const [text, setText] = useState('');
+  const [isSending, setIsSending] = useState(false);
+  let timeoutID = null;
+
+  function handleSend() {
+    setIsSending(true);
+    timeoutID = setTimeout(() => {
+      alert('Sent!');
+      setIsSending(false);
+    }, 3000);
+  }
+
+  function handleUndo() {
+    setIsSending(false);
+    clearTimeout(timeoutID);
+  }
+
+  return (
+    <>
+      <input
+        disabled={isSending}
+        value={text}
+        onChange={e => setText(e.target.value)}
+      />
+      <button
+        disabled={isSending}
+        onClick={handleSend}>
+        {isSending ? 'Sending...' : 'Send'}
+      </button>
+      {isSending &&
+        <button onClick={handleUndo}>
+          Undo
+        </button>
+      }
+    </>
+  );
+}
+
+Exercise 2 of 4: Fix a component failing to re-render 
+This button is supposed to toggle between showing “On” and “Off”. However, it always shows “Off”. What is wrong with this code? Fix it.
+
+App.js
+import { useRef } from 'react';
+
+export default function Toggle() {
+  const isOnRef = useRef(false);
+
+  return (
+    <button onClick={() => {
+      isOnRef.current = !isOnRef.current;
+    }}>
+      {isOnRef.current ? 'On' : 'Off'}
+    </button>
+  );
+}
+
+Exercise 3 of 4: Fix debouncing 
+In this example, all button click handlers are “debounced”. To see what this means, press one of the buttons. Notice how the message appears a second later. If you press the button while waiting for the message, the timer will reset. So if you keep clicking the same button fast many times, the message won’t appear until a second after you stop clicking. Debouncing lets you delay some action until the user “stops doing things”.
+
+This example works, but not quite as intended. The buttons are not independent. To see the problem, click one of the buttons, and then immediately click another button. You’d expect that after a delay, you would see both button’s messages. But only the last button’s message shows up. The first button’s message gets lost.
+
+Why are the buttons interfering with each other? Find and fix the issue.
+
+App.js
+let timeoutID;
+
+function DebouncedButton({ onClick, children }) {
+  return (
+    <button onClick={() => {
+      clearTimeout(timeoutID);
+      timeoutID = setTimeout(() => {
+        onClick();
+      }, 1000);
+    }}>
+      {children}
+    </button>
+  );
+}
+
+export default function Dashboard() {
+  return (
+    <>
+      <DebouncedButton
+        onClick={() => alert('Spaceship launched!')}
+      >
+        Launch the spaceship
+      </DebouncedButton>
+      <DebouncedButton
+        onClick={() => alert('Soup boiled!')}
+      >
+        Boil the soup
+      </DebouncedButton>
+      <DebouncedButton
+        onClick={() => alert('Lullaby sung!')}
+      >
+        Sing a lullaby
+      </DebouncedButton>
+    </>
+  )
+}
+
+Exercise 4 of 4: Read the latest state 
+In this example, after you press “Send”, there is a small delay before the message is shown. Type “hello”, press Send, and then quickly edit the input again. Despite your edits, the alert would still show “hello” (which was the value of state at the time the button was clicked).
+
+Usually, this behavior is what you want in an app. However, there may be occasional cases where you want some asynchronous code to read the latest version of some state. Can you think of a way to make the alert show the current input text rather than what it was at the time of the click?
+
+App.js
+import { useState, useRef } from 'react';
+
+export default function Chat() {
+  const [text, setText] = useState('');
+
+  function handleSend() {
+    setTimeout(() => {
+      alert('Sending: ' + text);
+    }, 3000);
+  }
+
+  return (
+    <>
+      <input
+        value={text}
+        onChange={e => setText(e.target.value)}
+      />
+      <button
+        onClick={handleSend}>
+        Send
+      </button>
+    </>
+  );
+}
+
+Manipulating the DOM with Refs
+
+Recap
+
+o Refs are a generic concept, but most often you’ll use them to hold DOM elements.
+
+o You instruct React to put a DOM node into myRef.current by passing <div ref={myRef}>.
+
+o Usually, you will use refs for non-destructive actions like focusing, scrolling, or measuring DOM elements.
+
+o A component doesn’t expose its DOM nodes by default. You can opt into exposing a DOM node by using the ref prop.
+
+o Avoid changing DOM nodes managed by React.
+
+o If you do modify DOM nodes managed by React, modify parts that React has no reason to update.
+
+Exercise 1 of 2: Play and pause the video 
+In this example, the button toggles a state variable to switch between a playing and a paused state. However, in order to actually play or pause the video, toggling state is not enough. You also need to call play() and pause() on the DOM element for the <video>. Add a ref to it, and make the button work.
+
+App.js
+import { useState, useRef } from 'react';
+
+export default function VideoPlayer() {
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  function handleClick() {
+    const nextIsPlaying = !isPlaying;
+    setIsPlaying(nextIsPlaying);
+  }
+
+  return (
+    <>
+      <button onClick={handleClick}>
+        {isPlaying ? 'Pause' : 'Play'}
+      </button>
+      <video width="250">
+        <source
+          src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
+          type="video/mp4"
+        />
+      </video>
+    </>
+  )
+}
+
+For an extra challenge, keep the “Play” button in sync with whether the video is playing even if the user right-clicks the video and plays it using the built-in browser media controls. You might want to listen to onPlay and onPause on the video to do that.
+
+Exercise 2 of 2: Focus the search field 
+Make it so that clicking the “Search” button puts focus into the field.
+
+App.js
+export default function Page() {
+  return (
+    <>
+      <nav>
+        <button>Search</button>
+      </nav>
+      <input
+        placeholder="Looking for something?"
+      />
+    </>
+  );
+}
 
 Synchronizing with Effects
 
@@ -2984,6 +3672,91 @@ export default function Page() {
 
 There is a bug in this code. Start by selecting “Alice”. Then select “Bob” and then immediately after that select “Taylor”. If you do this fast enough, you will notice that bug: Taylor is selected, but the paragraph below says “This is Bob’s bio.”
 Why does this happen? Fix the bug inside this Effect.
+
+Reusing Logic with Custom Hooks
+
+Recap
+o Custom Hooks let you share logic between components.
+
+o Custom Hooks must be named starting with use followed by a capital letter.
+
+o Custom Hooks only share stateful logic, not state itself.
+
+o You can pass reactive values from one Hook to another, and they stay up-to-date.
+
+o All Hooks re-run every time your component re-renders.
+
+o The code of your custom Hooks should be pure, like your component’s code.
+
+Exercise 1 of 2: Extract a useCounter Hook
+This component uses a state variable and an Effect to display a number that increments every second. Extract this logic into a custom Hook called useCounter. Your goal is to make the Counter component implementation look exactly like this:
+
+export default function Counter() {
+  const count = useCounter();
+  return <h1>Seconds passed: {count}</h1>;
+}
+
+You’ll need to write your custom Hook in useCounter.js and import it into the App.js file.
+
+useCounter.js
+// Write your custom Hook in this file!
+
+App.js
+import { useState, useEffect } from 'react';
+
+export default function Counter() {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => {
+      setCount(c => c + 1);
+    }, 1000);
+    return () => clearInterval(id);
+  }, []);
+  return <h1>Seconds passed: {count}</h1>;
+}
+
+Exercise 2 of 2: Make the counter delay configurable 
+In this example, there is a delay state variable controlled by a slider, but its value is not used. Pass the delay value to your custom useCounter Hook, and change the useCounter Hook to use the passed delay instead of hardcoding 1000 ms.
+
+useCounter.js
+import { useState, useEffect } from 'react';
+
+export function useCounter() {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => {
+      setCount(c => c + 1);
+    }, 1000);
+    return () => clearInterval(id);
+  }, []);
+  return count;
+}
+
+App.js
+import { useState } from 'react';
+import { useCounter } from './useCounter.js';
+
+export default function Counter() {
+  const [delay, setDelay] = useState(1000);
+  const count = useCounter();
+  return (
+    <>
+      <label>
+        Tick duration: {delay} ms
+        <br />
+        <input
+          type="range"
+          value={delay}
+          min="10"
+          max="2000"
+          onChange={e => setDelay(Number(e.target.value))}
+        />
+      </label>
+      <hr />
+      <h1>Ticks: {count}</h1>
+    </>
+  );
+}
 
 Developing a Movie API
 

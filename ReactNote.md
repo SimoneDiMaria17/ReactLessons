@@ -117,3 +117,87 @@ In breve:
 Props → dati immutabili ricevuti dall’esterno.
 
 State → dati mutabili locali al componente.
+
+
+DeepCopy:
+  Gestione di uno stato complesso tipo un oggetto, setPosition({
+    x:valore,
+    y:valore
+  }) -> per modificare i valori
+
+  esempio di un form
+  setPerson({
+    ..Person -> estrae gli attributi con i valori già presenti e li reinserisce nel nuovo set -> spread syntax
+    firstName : nuovo valore
+  }), centralizzare questa roba 
+
+  function a(e){
+    ...person
+    [e.target.name] : e.target.value -> uso le quadre per definire che non è un parametro dell'oggetto, so quello che devo cambiare dal target.name
+  }
+
+
+  2-way binding
+
+  con oggetti dentro oggetti
+  a{
+    name:'a',
+    b:{
+      c:''
+      d;:''
+    }
+  }
+
+  setPerson({
+    ...person,
+    artwork:{
+      ...person.artwork
+      title:'';
+    }
+  })
+
+
+  libreria Immer
+  la libreria immer ti facilita i passaggi sopra
+  updateperson(draft=>{ -> draft è già una copia di quell'oggetto
+    draft.name = e.target.value;
+  })
+
+  stessa cosa ma con array:
+  evitare metodi che mutano direttamente l'array
+  let list =[{
+
+  }]
+
+si può usare anche qua la libreria immer-> update(draft=>{
+  const artvowrk = draft.find(a=>a.id===id)
+  modifica
+})
+
+  Updating Arrays in State
+
+		avoid (mutates the array)	prefer (returns a new array)
+adding		push, unshift			concat, [...arr] spread syntax
+
+removing 	pop, shift, splice		filter, slice 
+
+replacing 	splice, arr[i] = ... assignment map 
+
+sorting		reverse, sort			copy the array first 
+
+
+
+strutturare lo stato, LE REgole, 
+1- raggruppare assieme gli elementi di uno stesso gruppo, esempio form ha un oggetto con il nome,cognome..
+2-evitare la ridondanza
+3-evitare le contraddizioni
+4- evitare i duplicati
+5-evitare stati troppo complessi con tanti innesti
+
+Condiviere los tato-> usare l'idioma, spostare lo stato dal figlio al genitore
+
+
+
+altri metodi hook
+useRef -> risolve il problema del componente puro, quindi può usare variabili globali, se essa viene modificata non viene ricarita la pagina, anche elementi del dom
+useEffect -> 
