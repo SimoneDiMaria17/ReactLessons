@@ -12,12 +12,14 @@ import Eventi from "./Eventi"
 import Stato from "./Stato"
 import RenderCommit from "./RendereCommit"
 import Hook from './Hook'
+import NuovoIndex from "./NuovoIndex"
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <h1>hook</h1>
-    <Hook/>
-    <hr></hr>
+    <NuovoIndex/>
+    {/* <h1>hook</h1>
+    <Hook/> */}
+    {/* <hr></hr>
     <h1>RenderCOmmit</h1>
     <RenderCommit/>
     <hr></hr>
@@ -29,15 +31,16 @@ root.render(
     <h1>Eventi</h1>
     <Eventi></Eventi>
     <hr></hr>
-    <h1>Accedere alle liste</h1>
-    <setTea/>
-    <hr></hr>
+    {/* <h1>Accedere alle liste</h1>
+    <setTea/> */}
+    {/* <hr></hr>
     <h1>funzioni pure</h1>
     <SetTea/>
     <hr></hr>
-    <h1>Esercizi</h1>
+    <h1>Esercizi</h1> */} 
+
     
-    <EserciziMain/>
+    {/* <EserciziMain/> */}
   </React.StrictMode>
 );
 

@@ -14,6 +14,8 @@ export default function Hook(){
         <TodoList/>
         <h2>video player</h2>
         <AutoPLayVideo/>
+        <h2>array use effect</h2>
+        {/* <EffectArray/> */}
     </div>)
 }
 
@@ -204,3 +206,81 @@ export function AutoPLayVideo(){
     </>);
 }
 
+//useEffect con array, dove specifici le dipendenze
+// export function EffectArray(){
+//     // const [count,setCount] = useState();
+
+//     // useEffect(()=>{
+//     //     setCount(count+1);
+//     // },[])//la qudra lo fa fare solo la prima volta che viene reinderizzato
+//     // return(<>
+//     //     <button>done</button>
+//     // </>)
+//     const ref = useRef(null);
+//     const [isPlaying,setIsPlaying] = useState(false)
+//     const [text,setText] = useState('');
+
+//     useEffect(()=>{
+//         if(isPlaying){
+//             ref.current.play();
+//         }else{
+//             ref.current.pause();
+//         }
+//     },[isPlaying]);
+
+    
+//      return (<>
+//     <VideoPlayer 
+//       isPlaying = {isPlaying}
+//         src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
+//       />
+//       <br></br>
+//       <input type="text" value={text} onChange={e=>setText(e.target.value)}/>
+//       <button onClick={()=>setIsPlaying(!isPlaying)}>
+//         {isPlaying ? 'Pause' : 'Play'}
+//       </button>
+//     </>);
+// } 
+
+//senza array ogni rendere
+//con array vuoto solo primo render
+//con array con dati, quando viene modificata una variabile specificata nell'aaray
+
+
+
+/*
+
+function VideoPlayer({src, isPlaying}){
+    const ref = useRef(null);
+
+    // execute the code after every render 
+    useEffect(() => {
+        console.log("in useEffect");
+
+        if(isPlaying){
+            ref.current.play();
+        }else{
+            ref.current.pause();
+        }
+    }, [isPlaying])
+            
+    return (
+        <video width="900" src={src} ref={ref} loop/>
+    )
+}
+
+export default function App(){
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [text, setText] = useState('');
+
+    return (
+        <>
+            <input type="text" value={text} onChange={e => setText(e.target.value)} />
+            <button onClick={() => setIsPlaying(!isPlaying)}>
+                {isPlaying ? 'Pause' : 'Play'}
+            </button>
+            <VideoPlayer src={"https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"} isPlaying={isPlaying} />
+        </>
+    )
+}
+*/

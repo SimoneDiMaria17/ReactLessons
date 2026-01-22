@@ -14,7 +14,7 @@ import ConvertireLoStato from "./ConvertireLoStato"
 import HookEser from './HookEser'
  export default function EserciziMain() {
     return(<>
-   <HookEser/>
+   {/* <HookEser/> */}
     <hr></hr>
     <h1>pullo</h1>
     <ConvertireLoStato />
