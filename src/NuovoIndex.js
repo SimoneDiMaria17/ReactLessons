@@ -1,4 +1,5 @@
 import { useEffect,useRef, useState } from "react";
+import {useOnlineStatus} from "./CustomHook";
 
 //creando una chat room
 
@@ -149,7 +150,7 @@ export async function fetchBio(person) {
 }
 
 
-export default function Page() {
+export  function Page() {
   const [person, setPerson] = useState('Alice');
   const [bio, setBio] = useState(null);
 
@@ -178,4 +179,34 @@ export default function Page() {
     </>
   );
 }
+
+
+// riusare logica su custom hooks
+export  function StatusBar(){
+    
+    
+    const isOnline = useOnlineStatus();
+    return(<>   
+    <h1>is {isOnline?'Online':'Offline'}</h1>
+    </>)
+}
+
+export  function SaveButton(){
+    
+    
+    const isOnline = useOnlineStatus();
+    function handleSaveClick(){
+        console.log("ciao")
+    }
+    return(<div>
+        <button disabled={!isOnline} onClick={handleSaveClick}>click</button>
+    </div>);
+}
+export default function App(){  
+    return(<>
+        <SaveButton/>
+        <StatusBar/>
+    </>)
+}
+
 
