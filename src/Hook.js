@@ -1,9 +1,9 @@
-import { useRef, useState } from "react";
+import { useEffect,useRef, useState } from "react";
 
 export default function Hook(){
     return(<div>
-        <h2>useRef</h2>
-        <UseRef/>
+        {/* <h2>useRef</h2>
+        <UseRef/> */}
         <h2>watch</h2>
         <StopWatch/>
         <h2>Focus</h2>
@@ -12,6 +12,8 @@ export default function Hook(){
         <Scroll/>
         <h2>todo</h2>
         <TodoList/>
+        <h2>video player</h2>
+        <AutoPLayVideo/>
     </div>)
 }
 
@@ -172,3 +174,33 @@ export function TodoList(){
 //useEffect
 //sincronizzacione con effetti
 // un effetto è un evento che si verifica quando un component viene renderizzato
+//usato per le chiamate api
+
+export function VideoPlayer({src,isPlaying}){
+    const ref = useRef(null);
+    useEffect(()=>{
+        if(isPlaying){
+            ref.current.play();
+        }else{
+            ref.current.pause();
+        }
+    });
+    return(<>
+    <video width="1000px" src={src} ref={ref}/>
+    </>);
+}
+
+export function AutoPLayVideo(){
+    const [isPlaying,setIsPlaying] = useState(false)
+    return (<>
+    <VideoPlayer 
+      isPlaying = {isPlaying}
+        src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
+      />
+      <br></br>
+      <button onClick={()=>setIsPlaying(!isPlaying)}>
+        {isPlaying ? 'Pause' : 'Play'}
+      </button>
+    </>);
+}
+
