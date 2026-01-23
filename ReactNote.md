@@ -201,3 +201,9 @@ Condiviere los tato-> usare l'idioma, spostare lo stato dal figlio al genitore
 altri metodi hook
 useRef -> risolve il problema del componente puro, quindi può usare variabili globali, se essa viene modificata non viene ricarita la pagina, anche elementi del dom
 useEffect -> 
+
+
+
+
+quando bootstrap modifica lo stato preservandolo o modificandolo
+lo modifica oltre che ai casi estremi come il refresh anche quando camìmbia posiziona nel dom

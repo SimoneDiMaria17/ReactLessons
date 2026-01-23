@@ -1,3 +1,5 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
@@ -13,10 +15,19 @@ import Stato from "./Stato"
 import RenderCommit from "./RendereCommit"
 import Hook from './Hook'
 import NuovoIndex from "./NuovoIndex"
+import Navbar from './NavBar';
+import Reducer from './Reducer'
+import PreservareSalvare from "./PreservareSalvareStato"
+import ComplexApp from './Esercizi/ComplexApp/ComplexApp'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <ComplexApp/>
+    {/* <Navbar/>
     <NuovoIndex/>
+    <PreservareSalvare/>
+    <h1>Reducer</h1>
+    <Reducer/> */}
     {/* <h1>hook</h1>
     <Hook/> */}
     {/* <hr></hr>

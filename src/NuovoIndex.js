@@ -218,12 +218,13 @@ export default function Forms() {
     const lastNameprop = UseFormInput("Lfulvios");
 
     return (
-        <>
-            fn: <input {...firstNameprop} />
-            ln: <input {...lastNameprop}/>
+        <div className="w-25 m-5 border p-5 rounded-3">
+            <h1>Form </h1>
+            Nome: <input {...firstNameprop}  className="form-control"/>
+            Cognome: <input {...lastNameprop} className="form-control"/>
             <br></br>
             {firstNameprop.value} {lastNameprop.value}
-        </>
+        </div>
     )
 
     
