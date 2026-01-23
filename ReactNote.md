@@ -214,3 +214,22 @@ lo modifica oltre che ai casi estremi come il refresh anche quando camìmbia pos
 API
 
 visual studio -> creare -> api web asp.net core->
+1- abilitare le cors nel program.cs
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("CorsPolicy", builder => {
+            builder.AllowAnyOrigin();
+            builder.AllowAnyMethod();
+            builder.AllowAnyHeader();
+        });
+    }
+    );
+
+2- dopo la useAuth dico di usare il cors
+3- Creo la cartella models per i modelli dei dati
+4- creao il controller (le classi che gestiscono le chiamate http)
+
+
+su react scaricare il routing con npm install react-router-dom@^5.3.4 --no-audit
+per le vere e proprie chiamate si usa axio npm install axios --no-audit
+creo il models per le chiamate api e raggruppare le funzioni,

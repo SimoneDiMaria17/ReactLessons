@@ -19,10 +19,14 @@ import Navbar from './NavBar';
 import Reducer from './Reducer'
 import PreservareSalvare from "./PreservareSalvareStato"
 import ComplexApp from './Esercizi/ComplexApp/ComplexApp'
+import Api from './Api/App'
+import { BrowserRouter } from 'react-router-dom/cjs/react-router-dom.min';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <ComplexApp/>
+    <BrowserRouter><Api/></BrowserRouter>
+    
+    {/* <ComplexApp/> */}
     {/* <Navbar/>
     <NuovoIndex/>
     <PreservareSalvare/>
