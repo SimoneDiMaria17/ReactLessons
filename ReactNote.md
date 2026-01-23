@@ -207,3 +207,10 @@ useEffect ->
 
 quando bootstrap modifica lo stato preservandolo o modificandolo
 lo modifica oltre che ai casi estremi come il refresh anche quando camìmbia posiziona nel dom
+
+
+
+
+API
+
+visual studio -> creare -> api web asp.net core->
